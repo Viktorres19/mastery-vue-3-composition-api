@@ -13,24 +13,20 @@
 </template>
 
 <script>
-import { reactive, computed, toRefs } from 'vue'
+import useEventSpace from '@/use/event-space'
+//import useMapping from '@/use/mapping'
 export default {
   name: 'CompositionApi',
   setup() {
-    const event = reactive({
-      capacity: 4,
-      attending: ['Tim', 'Bob', 'Joe'],
-      spacesLeft: computed(() => {
-        return event.capacity - event.attending.length
-      })
-    })
+    return useEventSpace() //Call this composition function
+    //best practice when we use 2 or more imports
+    /*const { capacity, attending, spacesLeft, increaseCapacity } = useEventSpace();
+    const { map, embedId } = useMapping();
 
-    const increaseCapacity = () => {
-      event.capacity++
-    }
-    return { ...toRefs(event), increaseCapacity }
+    return { capacity, attending, spacesLeft, increaseCapacity, map, embedId };*/
   }
 }
+
 </script>
 
 <style scoped>
