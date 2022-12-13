@@ -13,21 +13,22 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { reactive, computed, toRefs } from 'vue'
 export default {
   name: 'CompositionApi',
   setup() {
-    const capacity = ref(4);
-    const attending = ref(['Tim', 'Bob', 'Joe'])
-
-    const spacesLeft = computed(() => {
-      return capacity.value - attending.value.length
+    const event = reactive({
+      capacity: 4,
+      attending: ['Tim', 'Bob', 'Joe'],
+      spacesLeft: computed(() => {
+        return event.capacity - event.attending.length
+      })
     })
 
     const increaseCapacity = () => {
-      capacity.value++
+      event.capacity++
     }
-    return { capacity, attending, spacesLeft, increaseCapacity }
+    return { ...toRefs(event), increaseCapacity }
   }
 }
 </script>
